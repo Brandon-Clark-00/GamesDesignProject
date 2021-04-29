@@ -32,3 +32,38 @@ void UImprovementInfo::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 	// ...
 }
 
+UFUNCTION(BlueprintCallable, Category = "Improvements")
+	void UImprovementInfo::genImprovementInfo(int iImprovementID, int iImprovementType, FString iImprovementName, float iCost, float iRunningCost, float iValueIncrease, TArray<int> iValidTiles, TArray<int> iValidResources) {
+	improvementID = iImprovementID;
+	improvementType = iImprovementType;
+	improvementName = iImprovementName;
+	cost = iCost;
+	runningCost = iRunningCost;
+	valueIncrease = iValueIncrease;
+	validTiles = iValidTiles;
+	validResources = iValidResources;
+}
+
+UFUNCTION(BlueprintCallable, Category = "Improvements")
+FString UImprovementInfo::genImprovementName(int iImprovementType)
+{
+	return FString();
+}
+;
+
+UFUNCTION(BlueprintCallable, Category = "Improvements")
+bool UImprovementInfo::improvementValid(int tileType, int resourceType) {
+	TArray<int> tiles = getValidTiles();
+	TArray<int> resources = getValidResources();
+
+	if (tiles.Contains(tileType) == true && resources.Contains(resourceType))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+};
+
+

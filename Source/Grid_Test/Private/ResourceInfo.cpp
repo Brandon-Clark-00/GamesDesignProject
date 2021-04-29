@@ -32,3 +32,53 @@ void UResourceInfo::TickComponent(float DeltaTime, ELevelTick TickType, FActorCo
 	// ...
 }
 
+UFUNCTION(BlueprintCallable, Category = "Resource")
+void UResourceInfo::genResourceInfo(int iID, int iResourceType, int iResourceCount, float iCurrencyValue, float iEnergyValue, float iWaterValue, float iFoodValue, TArray<int> iSpawnTileTypes) {
+	ID = iID;
+	resourceType = iResourceType;
+	resourceName = genResourceName(iResourceType);
+	resourceCount = iResourceCount;
+	currencyValue = iCurrencyValue;
+	energyValue = iEnergyValue;
+	waterValue = iWaterValue;
+	foodValue = iFoodValue;
+	spawnTileTypes = iSpawnTileTypes;
+
+}
+
+
+
+bool UResourceInfo::tileCompatile(int tileType)
+{
+	TArray<int> temp;
+	temp = getSpawnTileTypes();
+	bool output = temp.Contains(tileType);
+		
+	return output;
+}
+
+FString UResourceInfo::genResourceName(int input) {
+	switch (input)
+	{
+	case 1:
+		return "Oil";
+	case 2:
+		return "Coal";
+	case 3:
+		return "Fish";
+	case 4:
+		return "Wheat";
+	case 5:
+		return "Wood";
+	case 6:
+		return "Silver";
+	case 7:
+		return "Sheep";
+	case 8:
+		return "Iron";
+	default:
+		return "No resource";
+		break;
+	}
+}
+

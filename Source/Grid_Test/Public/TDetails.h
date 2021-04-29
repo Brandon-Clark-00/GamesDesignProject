@@ -12,4 +12,6 @@ class GRID_TEST_API TDetails
 public:
 	TDetails();
 	~TDetails();
+	UPROPERTY()
+
 };

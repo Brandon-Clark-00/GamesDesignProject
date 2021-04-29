@@ -13,5 +13,12 @@ UCLASS()
 class GRID_TEST_API AMyFunctionalTestLevelScript : public AFunctionalTestLevelScript
 {
 	GENERATED_BODY()
-	
+public:
+	UPROPERTY()
+		int turnNum;
+
+	UFUNCTION(BlueprintCallable, Category = "CoreLogic")
+		int returnTurnNum() {
+		return turnNum;
+	}
 };
