@@ -29,10 +29,10 @@ public:
 		float runningCost;
 	UPROPERTY()
 		float valueIncrease;
-	UPROPERTY()
+	/*UPROPERTY()
 		TArray<int> validTiles;
 	UPROPERTY()
-		TArray<int> validResources;
+		TArray<int> validResources;*/
 
 protected:
 	// Called when the game starts
@@ -101,7 +101,7 @@ public:
 		valueIncrease = input;
 	}
 
-	UFUNCTION(BlueprintCallable, Category = "Improvements")
+	/*UFUNCTION(BlueprintCallable, Category = "Improvements")
 		TArray<int> getValidTiles() {
 		return validTiles;
 	}
@@ -119,12 +119,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Improvements")
 		void setValidResources(TArray<int> input) {
 		validResources = input;
-	}
+	}*/
 	UFUNCTION(BlueprintCallable, Category = "Improvements")
-	void genImprovementInfo(int iImprovementID, int iImprovementType, FString iImprovementName, float iCost, float iRunningCost, float iValueIncrease, TArray<int> iValidTiles, TArray<int> iValidResources);
+	void genImprovementInfo(int iImprovementID, int iImprovementType, FString iImprovementName, float iCost, float iRunningCost, float iValueIncrease/*, TArray<int> iValidTiles, TArray<int> iValidResources*/);
 
 	FString genImprovementName(int iImprovementType);
 
-	UFUNCTION(BlueprintCallable, Category = "Improvements")
-		bool improvementValid(int tileType, int resourceType);
+	/*UFUNCTION(BlueprintCallable, Category = "Improvements")
+		bool improvementValid(int tileType, int resourceType);*/
 };

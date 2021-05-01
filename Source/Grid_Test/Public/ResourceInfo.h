@@ -40,8 +40,8 @@ public:
 		float waterValue;
 	UPROPERTY()
 		float foodValue;
-	UPROPERTY()
-		TArray<int> spawnTileTypes;
+	//UPROPERTY()
+		//TArray<int> spawnTileTypes;
 
 	UFUNCTION(BlueprintCallable, Category = "Resource")
 		int getID() {
@@ -123,7 +123,7 @@ public:
 		foodValue = input;
 	}
 
-	UFUNCTION(BlueprintCallable, Category = "Resource")
+	/*UFUNCTION(BlueprintCallable, Category = "Resource")
 		TArray<int> getSpawnTileTypes() {
 		return spawnTileTypes;
 	}
@@ -148,13 +148,13 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Resource")
 		void clearSpawnTileTypes() {
 		spawnTileTypes.Empty();
-	}
+	}*/
 	
 	UFUNCTION(BlueprintCallable, Category = "Resource")
-	void genResourceInfo(int iID, int iResourceType, int iResourceCount, float iCurrencyValue, float iEnergyValue, float iWaterValue, float iFoodValue, TArray<int> iSpawnTileTypes);
+	void genResourceInfo(int iID, int iResourceType, int iResourceCount, float iCurrencyValue, float iEnergyValue, float iWaterValue, float iFoodValue/*, TArray<int> iSpawnTileTypes*/);
 	
-	UFUNCTION(BlueprintCallable, Category = "Resource")
-		bool tileCompatile(int tileType);
+	//UFUNCTION(BlueprintCallable, Category = "Resource")
+	//	bool tileCompatile(int tileType);
 
 	FString genResourceName(int input);
 

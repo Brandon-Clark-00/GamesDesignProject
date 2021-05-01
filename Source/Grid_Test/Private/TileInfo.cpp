@@ -12,8 +12,8 @@ UTileInfo::UTileInfo()
 	ID = -1;
 	tileType = 20;
 	tileName = genTileName(tileType);
-	addTransport(0);
-	tileLocation;
+	/*addTransport(0);*/
+	/*tileLocation;*/
 	energyProduction = 0;
 	waterProduction = 0;
 	foodProduction = 0;
@@ -22,26 +22,29 @@ UTileInfo::UTileInfo()
 }
 
 UFUNCTION(BlueprintCallable, Category = "Tile")
-void UTileInfo::genTileInfo(int iID, int iTileType, TArray<int> iGridPos, FTransform itileLocation, float iEProduction, float iWProduction, float iFProduction, UImprovementInfo* iImprovements)
+void UTileInfo::genTileInfo(int iID, int iTileType, TArray<int> iGridPos,/* FTransform itileLocation,*/ float iEProduction, float iWProduction, float iFProduction, UImprovementInfo* iImprovements)
 {
 	ID = iID;
 	tileType = iTileType;
 	tileName = genTileName(getTileType());
 	improvements = iImprovements;
 	gridPos = iGridPos;
-	addTransport(0);
-	addTransport(0);
-	tileLocation = itileLocation;
+	/*addTransport(0);
+	addTransport(0);*/
+	/*tileLocation = itileLocation;*/
 	energyProduction = iEProduction;
 	waterProduction = iWProduction;
 	foodProduction = iFProduction;
+	tileResource = NewObject<UResourceInfo>();
+	improvements = NewObject<UImprovementInfo>();
 };
 
 // Called when the game starts
 void UTileInfo::BeginPlay()
 {
 	Super::BeginPlay();
-
+	tileResource = NewObject<UResourceInfo>();
+	improvements = NewObject<UImprovementInfo>();
 	// ...
 	
 }
@@ -55,12 +58,24 @@ void UTileInfo::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	// ...
 }
 
-UFUNCTION(BlueprintCallable, Category = "Tile")
-void UTileInfo::addTransport(int input)
+//UFUNCTION(BlueprintCallable, Category = "Tile")
+//void UTileInfo::addTransport(int input)
+//{
+//	TArray<int> temp = getcurrentUtilities();
+//	temp.Add(input);
+//	setcurrentUtilities(temp);
+//}
+
+bool UTileInfo::validateGrid(int y, int x)
 {
-	TArray<int> temp = getcurrentUtilities();
-	temp.Add(input);
-	setcurrentUtilities(temp);
+	if (gridPos.Num() < 2) {
+		return false;
+	}
+	if (y == getGridPos()[0] && x == getGridPos()[1])
+	{
+		return true;
+	}
+	return false;
 }
 
 FString UTileInfo::genTileName(int input)
@@ -68,15 +83,21 @@ FString UTileInfo::genTileName(int input)
 	switch (input)
 	{
 	case 1:
-		return "Sand";
+		return "Desert";
 	case 2:
 		return "Grasslands";
 	case 3:
-		return "Swamp";
+		return "Hills";
 	case 4:
-		return "Deep Sea";
+		return "Sea";
 	case 5:
 		return "Rocky mountains";
+	case 6:
+		return "Snowy tundra";
+	case 7: 
+		return "Lake";
+	case 8:
+		return "Forest";
 	default:
 		return "Blank";
 		break;

@@ -32,8 +32,8 @@ public:
 	int tileType;
 	FString tileName;
 	TArray<int> gridPos;
-	TArray<int> currentUtilities;
-	FTransform tileLocation;
+	/*TArray<int> currentUtilities;*/
+	/*FTransform tileLocation;*/
 	float energyProduction;
 	float waterProduction;
 	float foodProduction;
@@ -93,10 +93,10 @@ public:
 		improvements = input;
 	};
 
-	UFUNCTION(BlueprintCallable, Category = "Tile")
+	/*UFUNCTION(BlueprintCallable, Category = "Tile")
 		TArray<int> getcurrentUtilities() {
 		return currentUtilities;
-	};
+	};*/
 
 	UFUNCTION(BlueprintCallable, Category = "Tile")
 		void setGridPos(TArray<int> input) {
@@ -108,20 +108,20 @@ public:
 		return gridPos;
 	};
 
-	UFUNCTION(BlueprintCallable, Category = "Tile")
-		void setcurrentUtilities(TArray<int> input) {
-		currentUtilities = input;
-	};
+	//UFUNCTION(BlueprintCallable, Category = "Tile")
+	//	void setcurrentUtilities(TArray<int> input) {
+	//	currentUtilities = input;
+	//};
 
-	UFUNCTION(BlueprintCallable, Category = "Tile")
-		FTransform getTileLocation() {
-		return tileLocation;
-	};
+	//UFUNCTION(BlueprintCallable, Category = "Tile")
+	//	FTransform getTileLocation() {
+	//	return tileLocation;
+	//};
 
-	UFUNCTION(BlueprintCallable, Category = "Tile")
-		void setTileLocation(FTransform input) {
-		tileLocation = input;
-	};
+	//UFUNCTION(BlueprintCallable, Category = "Tile")
+	//	void setTileLocation(FTransform input) {
+	//	tileLocation = input;
+	//};
 
 	UFUNCTION(BlueprintCallable, Category = "Tile")
 		float getEnergyProduction() {
@@ -153,8 +153,8 @@ public:
 		foodProduction = input;
 	};
 
-	UFUNCTION(BlueprintCallable, Category = "Tile")
-		void addTransport(int input);
+	//UFUNCTION(BlueprintCallable, Category = "Tile")
+	//	void addTransport(int input);
 
 	UFUNCTION(BlueprintCallable,Category = "Tile")
 		UResourceInfo* getResource() {
@@ -176,10 +176,33 @@ public:
 		improvements = referenceInput;
 	}
 
+	UFUNCTION(BlueprintCallable, Category = "Tile")
+		bool validateGrid(int x, int y);
+
 	FString genTileName(int input);
 
 
 	UFUNCTION(BlueprintCallable, Category = "Tile")
-		void genTileInfo(int iID, int iTileType, TArray<int> iGridPos, FTransform itileLocation, float iEProduction, float iWProduction, float iFProduction, UImprovementInfo* iImprovements);
+		void genTileInfo(int iID, int iTileType, TArray<int> iGridPos, /*FTransform itileLocation,*/ float iEProduction, float iWProduction, float iFProduction, UImprovementInfo* iImprovements);
 
 };
+
+
+	//{
+	//docString.Append(FString::FromInt(playerTiles[i]->getImprovementInfo()->getImprovementID()));
+	//docString.Append("_");
+
+	//docString.Append(FString::FromInt(playerTiles[i]->getImprovementInfo()->getImprovementType()));
+	//docString.Append("_");
+
+	//docString.Append(playerTiles[i]->getImprovementInfo()->getImprovementName());
+	//docString.Append("_");
+
+	//docString.Append(FString::SanitizeFloat(playerTiles[i]->getImprovementInfo()->getCost()));
+	//docString.Append("_");
+
+	//docString.Append(FString::SanitizeFloat(playerTiles[i]->getImprovementInfo()->getRunningCost()));
+	//docString.Append("_");
+
+	//docString.Append(FString::SanitizeFloat(playerTiles[i]->getImprovementInfo()->getValueIncrease()));
+	//docString.Append("_");
