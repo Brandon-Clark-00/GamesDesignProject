@@ -107,18 +107,16 @@ int UFileHandling::loadfromSave()
     return 1;
 }
 
-
-TArray<FString> split(FString input, char delim)
+TArray<FString> UFileHandling::split(FString input, char delim)
 {
     TArray<FString> output;
     stringstream ss(std::string(TCHAR_TO_UTF8(*input)));
     string item;
 
-    while (getline(ss,item, delim))
+    while (getline(ss, item, delim))
     {
         output.Add(FString(item.c_str()));
     }
 
     return output;
-    
 }

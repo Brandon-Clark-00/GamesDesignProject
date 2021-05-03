@@ -140,6 +140,8 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Player")
 		UTileInfo* findTile(int y, int x);
+	UFUNCTION(BlueprintCallable, Category = "Player")
+	UTileInfo* findIndexTile(int input);
 
 	UFUNCTION(BlueprintCallable, Category = "Player")
 		void genPlayerClass(int iID, float iMoneySupply,	float iMoneyDemand,	float iEnergySupply, float iEnergyDemand, float iWaterSupply, float iWaterDemand, float iFoodSupply, float ifoodDemand, TArray<FresourcesList> resourcesList, TArray<UTileInfo*> iPlayerTiles);
@@ -148,10 +150,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "FileHandling")
 		FString genPlayerDoc();
 
-	/*UFUNCTION(BlueprintCallable, Category = "FileHandling")
+	UFUNCTION(BlueprintCallable, Category = "FileHandling")
 		FString readPlayerDoc();
 
 	TArray<FresourcesList> createResourcesList(FString input);
 
-	TArray<UTileInfo*> createPlayerTiles(FString input);*/
+	TArray<UTileInfo*> createPlayerTiles(FString input);
 };
