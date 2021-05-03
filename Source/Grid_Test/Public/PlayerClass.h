@@ -39,6 +39,7 @@ public:
 	
 	int playerID;
 	//Resources
+	float accruedMoney = 0;
 	float moneySupply=1;
 	float moneyDemand=2;
 	float energySupply=3;
@@ -60,6 +61,12 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Player")
     void setPlayerID(int iPlayerID) { this->playerID = iPlayerID; }
+
+	UFUNCTION(BlueprintCallable, Category = "Player")
+		float getAccruedMoney() const { return accruedMoney; }
+
+	UFUNCTION(BlueprintCallable, Category = "Player")
+		void setAccruedMoney(float iAccruedMoney) { this-> accruedMoney = iAccruedMoney; }
 
 	UFUNCTION(BlueprintCallable, Category = "Player")
     float getMoneySupply() const { return moneySupply; }
@@ -144,14 +151,14 @@ public:
 	UTileInfo* findIndexTile(int input);
 
 	UFUNCTION(BlueprintCallable, Category = "Player")
-		void genPlayerClass(int iID, float iMoneySupply,	float iMoneyDemand,	float iEnergySupply, float iEnergyDemand, float iWaterSupply, float iWaterDemand, float iFoodSupply, float ifoodDemand, TArray<FresourcesList> resourcesList, TArray<UTileInfo*> iPlayerTiles);
+		void genPlayerClass(int iID, float iAccruedMoney, float iMoneySupply,	float iMoneyDemand,	float iEnergySupply, float iEnergyDemand, float iWaterSupply, float iWaterDemand, float iFoodSupply, float ifoodDemand, TArray<FresourcesList> resourcesList, TArray<UTileInfo*> iPlayerTiles);
 
 
 	UFUNCTION(BlueprintCallable, Category = "FileHandling")
-		FString genPlayerDoc();
+		FString genPlayerDoc(FString fileName);
 
 	UFUNCTION(BlueprintCallable, Category = "FileHandling")
-		FString readPlayerDoc();
+		FString readPlayerDoc(FString fileName);
 
 	TArray<FresourcesList> createResourcesList(FString input);
 

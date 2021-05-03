@@ -24,7 +24,7 @@ class GRID_TEST_API UFileHandling : public UObject
 	GENERATED_BODY()
 public:
 
-	int savetoFile(FString textInput);
+	int savetoFile(FString textInput, FString fileName);
 
 	UFUNCTION(BlueprintCallable, Category = "FileHandling")
 	int loadfromSave();

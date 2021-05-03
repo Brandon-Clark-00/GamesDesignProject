@@ -4,11 +4,13 @@
 #include "FileHandling.h"
 
 //UFUNCTION(BlueprintCallable, Category = "FileHandling")
- int UFileHandling::savetoFile(FString textInput)
+ int UFileHandling::savetoFile(FString textInput, FString fileName)
 {
 
      FString file = FPaths::ProjectConfigDir();
-     file.Append(TEXT("player.txt"));
+     file.Append(fileName);
+     file.Append(".txt");
+
      IPlatformFile& FileManager = FPlatformFileManager::Get().GetPlatformFile();
 
      FString writeString(TEXT("Poofs"));

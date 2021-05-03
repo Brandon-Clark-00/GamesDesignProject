@@ -6,7 +6,7 @@
 //UFUNCTION(BlueprintCallable, Category = "CoreLogic")
 UPlayerClass::UPlayerClass()
 {
-
+	setAccruedMoney(0);
 	setMoneySupply(0);
 	setMoneyDemand(0);
 	setEnergySupply(0);
@@ -43,9 +43,10 @@ UTileInfo* UPlayerClass::findIndexTile(int input)
 }
 
 UFUNCTION(BlueprintCallable, Category = "Player")
-void UPlayerClass::genPlayerClass(int iID,float iMoneySupply, float iMoneyDemand, float iEnergySupply, float iEnergyDemand, float iWaterSupply, float iWaterDemand, float iFoodSupply, float ifoodDemand, TArray<FresourcesList> resourcesList, TArray<UTileInfo*> iPlayerTiles) {
+void UPlayerClass::genPlayerClass(int iID,float iAccruedMoney,float iMoneySupply, float iMoneyDemand, float iEnergySupply, float iEnergyDemand, float iWaterSupply, float iWaterDemand, float iFoodSupply, float ifoodDemand, TArray<FresourcesList> resourcesList, TArray<UTileInfo*> iPlayerTiles) {
 	setPlayerID(iID);
 	
+	setAccruedMoney(iAccruedMoney);
 	setMoneySupply(iMoneySupply);
 	setMoneyDemand(iMoneyDemand);
 	setEnergySupply(iEnergySupply);
@@ -60,13 +61,17 @@ void UPlayerClass::genPlayerClass(int iID,float iMoneySupply, float iMoneyDemand
 
 
 UFUNCTION(BlueprintCallable, Category = "FileHandling")
-FString UPlayerClass::genPlayerDoc() {
+FString UPlayerClass::genPlayerDoc(FString fileName) {
 	FString docString;	
 	cout << "Entered Doc" << endl;
 
 	docString.Append(FString::FromInt(getPlayerID()));
 	docString.Append(",");
 	cout << "finished pID" << endl;
+
+	docString.Append(FString::SanitizeFloat(getAccruedMoney()));
+	docString.Append(",");
+
 
 	docString.Append(FString::SanitizeFloat(getMoneySupply()));
 	docString.Append(",");
@@ -186,7 +191,7 @@ FString UPlayerClass::genPlayerDoc() {
 			}
 
 			docString.Append("-");
-			UE_LOG(LogTemp, Warning, TEXT("Got to here"));
+			//UE_LOG(LogTemp, Warning, TEXT("Got to here"));
 			// Improvement info
 			if (playerTiles[i]->getImprovementInfo() != nullptr)
 			{
@@ -223,7 +228,7 @@ FString UPlayerClass::genPlayerDoc() {
 	cout << "finished tiles" << endl;
 
 	UFileHandling* temp = NewObject<UFileHandling>();
-	temp->savetoFile(docString);
+	temp->savetoFile(docString, fileName);
 
 
 	return docString;
@@ -231,12 +236,13 @@ FString UPlayerClass::genPlayerDoc() {
 
 
 UFUNCTION(BlueprintCallable, Category = "FileHandling")
-FString UPlayerClass::readPlayerDoc()
+FString UPlayerClass::readPlayerDoc(FString fileName)
 {
 	FString inputText;
 
 	FString file = FPaths::ProjectConfigDir();
-	file.Append(TEXT("player.txt"));
+	file.Append(fileName);
+	file.Append(TEXT(".txt"));
 
 	// We will use this FileManager to deal with the file.
 	IPlatformFile& FileManager = FPlatformFileManager::Get().GetPlatformFile();
@@ -266,7 +272,7 @@ FString UPlayerClass::readPlayerDoc()
 	//genPlayerClass();
 
 	TArray<FString> results= temp->split(inputText,',');
-	genPlayerClass(FCString::Atoi(*results[0]), FCString::Atof(*results[1]), FCString::Atof(*results[2]), FCString::Atof(*results[3]), FCString::Atof(*results[4]), FCString::Atof(*results[5]), FCString::Atof(*results[6]), FCString::Atof(*results[7]), FCString::Atof(*results[8]),createResourcesList(results[9]),createPlayerTiles(results[10]));
+	genPlayerClass(FCString::Atoi(*results[0]), FCString::Atoi(*results[1]),FCString::Atof(*results[2]), FCString::Atof(*results[3]), FCString::Atof(*results[4]), FCString::Atof(*results[5]), FCString::Atof(*results[6]), FCString::Atof(*results[7]), FCString::Atof(*results[8]), FCString::Atof(*results[9]),createResourcesList(results[10]),createPlayerTiles(results[11]));
 
 
 	return inputText;

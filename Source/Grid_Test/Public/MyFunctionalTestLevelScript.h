@@ -74,8 +74,13 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "CoreLogic")
 	void gameLoop();
-	
-	void genAI();
+
+	UFUNCTION(BlueprintCallable, Category = "CoreLogic")
+	void genAI(int AINum);
+
+	TArray<UTileInfo*> genAITiles();
+
+	UResourceInfo* genTileResource(int tileType);
 	
 
     
