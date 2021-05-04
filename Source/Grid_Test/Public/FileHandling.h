@@ -26,8 +26,8 @@ public:
 
 	int savetoFile(FString textInput, FString fileName);
 
-	UFUNCTION(BlueprintCallable, Category = "FileHandling")
-	int loadfromSave();
+	/*UFUNCTION(BlueprintCallable, Category = "FileHandling")
+	int loadfromSave();*/
 
 		TArray<FString> split(FString input, char delim);
 

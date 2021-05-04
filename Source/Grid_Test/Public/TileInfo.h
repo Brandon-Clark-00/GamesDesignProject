@@ -35,7 +35,7 @@ public:
 	/*TArray<int> currentUtilities;*/
 	/*FTransform tileLocation;*/
 	float energyProduction;
-	float waterProduction;
+	float moneyProduction;
 	float foodProduction;
 	UPROPERTY()
 		UResourceInfo* tileResource;
@@ -134,13 +134,13 @@ public:
 	};
 
 	UFUNCTION(BlueprintCallable, Category = "Tile")
-		float getWaterProduction() {
-		return waterProduction;
+		float getMoneyProduction() {
+		return moneyProduction;
 	};
 
 	UFUNCTION(BlueprintCallable, Category = "Tile")
-		void setWaterProduction(float input) {
-		waterProduction = input;
+		void setMoneyProduction(float input) {
+		moneyProduction = input;
 	};
 
 	UFUNCTION(BlueprintCallable, Category = "Tile")

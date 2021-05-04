@@ -15,7 +15,7 @@ UTileInfo::UTileInfo()
 	/*addTransport(0);*/
 	/*tileLocation;*/
 	energyProduction = 0;
-	waterProduction = 0;
+	moneyProduction = 0;
 	foodProduction = 0;
 
 	// ...
@@ -33,7 +33,7 @@ void UTileInfo::genTileInfo(int iID, int iTileType, TArray<int> iGridPos,/* FTra
 	addTransport(0);*/
 	/*tileLocation = itileLocation;*/
 	energyProduction = iEProduction;
-	waterProduction = iWProduction;
+	moneyProduction = iWProduction;
 	foodProduction = iFProduction;
 	tileResource = NewObject<UResourceInfo>();
 	improvements = NewObject<UImprovementInfo>();

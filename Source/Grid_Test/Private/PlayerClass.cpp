@@ -151,7 +151,7 @@ FString UPlayerClass::genPlayerDoc(FString fileName) {
 			docString.Append(FString::SanitizeFloat(playerTiles[i]->getEnergyProduction()));
 			docString.Append("-"); 
 
-			docString.Append(FString::SanitizeFloat(playerTiles[i]->getWaterProduction()));
+			docString.Append(FString::SanitizeFloat(playerTiles[i]->getMoneyProduction()));
 			docString.Append("-"); 
 
 			docString.Append(FString::SanitizeFloat(playerTiles[i]->getFoodProduction()));
@@ -240,7 +240,7 @@ FString UPlayerClass::readPlayerDoc(FString fileName)
 {
 	FString inputText;
 
-	FString file = FPaths::ProjectConfigDir();
+	FString file = FPaths::LaunchDir();
 	file.Append(fileName);
 	file.Append(TEXT(".txt"));
 
@@ -253,17 +253,17 @@ FString UPlayerClass::readPlayerDoc(FString fileName)
 		// We use the LoadFileToString to load the file into
 		if (FFileHelper::LoadFileToString(inputText, *file, FFileHelper::EHashOptions::None))
 		{
-			UE_LOG(LogTemp, Warning, TEXT("FileManipulation: Text From File: %s"), *inputText);
+			/*UE_LOG(LogTemp, Warning, TEXT("FileManipulation: Text From File: %s"), *inputText);*/
 		}
 		else
 		{
-			UE_LOG(LogTemp, Warning, TEXT("FileManipulation: Did not load text from file"));
+			/*UE_LOG(LogTemp, Warning, TEXT("FileManipulation: Did not load text from file"));*/
 		}
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("FileManipulation: ERROR: Can not read the file because it was not found."));
-		UE_LOG(LogTemp, Warning, TEXT("FileManipulation: Expected file location: %s"), *file);
+		/*UE_LOG(LogTemp, Warning, TEXT("FileManipulation: ERROR: Can not read the file because it was not found."));
+		UE_LOG(LogTemp, Warning, TEXT("FileManipulation: Expected file location: %s"), *file);*/
 	}
 
 	UFileHandling* temp = NewObject<UFileHandling>();
@@ -350,7 +350,7 @@ TArray<UTileInfo*> UPlayerClass::createPlayerTiles(FString input)
 
 
 
-		UE_LOG(LogTemp, Warning, TEXT("Success"));
+		//UE_LOG(LogTemp, Warning, TEXT("Success"));
 		output.Add(temp);
 		temp = NewObject<UTileInfo>();
 	}

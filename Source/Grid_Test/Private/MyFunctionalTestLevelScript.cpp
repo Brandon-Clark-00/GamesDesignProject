@@ -38,11 +38,15 @@ void AMyFunctionalTestLevelScript::takeAITurn(UPlayerClass* AI)
 			turnTaken = true;
 		}
 	}
+
 }
 void AMyFunctionalTestLevelScript::gameLoop()
 {
 	setTurnNum(getTurnNum() + 1);
-	getPlayer()->genPlayerDoc("player");
+	updateUtilities(getPlayer());
+	//getPlayer()->genPlayerDoc("player");
+	checkGameOver(getPlayer());
+	
 	if (turnNum != turnLimit && !gameOver)
 	{
 		if (getAIPlayers().IsValidIndex(0))
@@ -51,20 +55,28 @@ void AMyFunctionalTestLevelScript::gameLoop()
 			for (int i = 0; i < getAIPlayers().Num(); i++)
 			{
 				takeAITurn(getAIPlayers()[i]);
-				getAIPlayers()[i]->genPlayerDoc(FString::FromInt(i));
-				UE_LOG(LogTemp, Warning, TEXT("Done an AI"));
+				/*getAIPlayers()[i]->genPlayerDoc(FString::FromInt(i));*/
+				updateUtilities(getAIPlayers()[i]);
+				if (checkGameOver(getAIPlayers()[i]))
+				{
+					break;
+				}
+				//UE_LOG(LogTemp, Warning, TEXT("Done an AI"));
 			}
 		}
 		else
 		{
-			UE_LOG(LogTemp, Warning, TEXT("AI Players empty"));
+			//UE_LOG(LogTemp, Warning, TEXT("AI Players empty"));
 		}
 	}
-		
-
-
-		
-	
+	else
+	{
+		//UE_LOG(LogTemp, Warning, TEXT("Game won by %d"), getWinningPlayer()->getPlayerID());
+	}
+}
+void AMyFunctionalTestLevelScript::updateUtilities(UPlayerClass* input)
+{
+	input->setAccruedMoney(input->getAccruedMoney() + input->getMoneySupply() - input->getMoneyDemand());
 }
 
 UFUNCTION(BlueprintCallable, Category = "CoreLogic")
@@ -85,6 +97,31 @@ void AMyFunctionalTestLevelScript::genAI(int AINum)
 
 }
 
+UFUNCTION(BlueprintCallable, Category = "CoreLogic")
+FString AMyFunctionalTestLevelScript::returnAIDetails()
+{
+
+	FString output ="Player ID : Money \n";
+	if (getPlayer() != nullptr) {
+		output.Append(FString(TEXT("You : " + FString::SanitizeFloat(getPlayer()->getAccruedMoney()) + "\n")));
+	}
+	
+	if (getAIPlayers().IsValidIndex(0))
+	{
+
+		for (int i = 0; i < getAIPlayers().Num(); i++)
+		{
+			output.Append(FString(TEXT("Player " + FString::FromInt(getAIPlayers()[i]->getPlayerID()) + " : " + FString::SanitizeFloat(getAIPlayers()[i]->getAccruedMoney()) + "\n")));
+			//UE_LOG(LogTemp, Warning, TEXT("Done an AI"));
+		}
+	}
+	else
+	{
+		//UE_LOG(LogTemp, Warning, TEXT("AI Players empty"));
+	}
+	return output;
+}
+
 TArray<UTileInfo*> AMyFunctionalTestLevelScript::genAITiles()
 {
 	TArray<UTileInfo*> output;
@@ -102,7 +139,7 @@ TArray<UTileInfo*> AMyFunctionalTestLevelScript::genAITiles()
 		int tileType = (rand() % 8) + 1;
 		tile->genTileInfo(i, tileType , grid, 0, 0, 0, improvement);
 		tile->setTileResource(genTileResource(tileType));
-		UE_LOG(LogTemp, Warning, TEXT("The resource is %s"), *tile->getResource()->getResourceName());
+		//UE_LOG(LogTemp, Warning, TEXT("The resource is %s"), *tile->getResource()->getResourceName());
 		output.Add(tile);
 	}
 	return output;
@@ -118,7 +155,7 @@ UResourceInfo* AMyFunctionalTestLevelScript::genTileResource(int tileType)
 		
 	case 0:
 		resource->genResourceInfo(0, 0, 0, 0, 0, 0, 0);
-		UE_LOG(LogTemp, Warning, TEXT("Case 0"));
+		//UE_LOG(LogTemp, Warning, TEXT("Case 0"));
 		break;
 	case 1:
 		switch (subchoice)
@@ -139,7 +176,7 @@ UResourceInfo* AMyFunctionalTestLevelScript::genTileResource(int tileType)
 			resource->genResourceInfo(0, 0, 0, 0, 0, 0, 0);
 			break;
 		}
-		UE_LOG(LogTemp, Warning, TEXT("Case 1"));
+		//UE_LOG(LogTemp, Warning, TEXT("Case 1"));
 		break;
 	case 2:
 		switch (subchoice)
@@ -160,7 +197,7 @@ UResourceInfo* AMyFunctionalTestLevelScript::genTileResource(int tileType)
 			resource->genResourceInfo(0, 0, 0, 0, 0, 0, 0);
 			break;
 		}
-		UE_LOG(LogTemp, Warning, TEXT("Case 2"));
+		//UE_LOG(LogTemp, Warning, TEXT("Case 2"));
 		break;
 	case 3:
 		switch (sub2)
@@ -184,7 +221,7 @@ UResourceInfo* AMyFunctionalTestLevelScript::genTileResource(int tileType)
 			resource->genResourceInfo(0, 0, 0, 0, 0, 0, 0);
 			break;
 		}
-		UE_LOG(LogTemp, Warning, TEXT("Case 3"));
+		//UE_LOG(LogTemp, Warning, TEXT("Case 3"));
 		break;
 	case 4:
 		switch (subchoice)
@@ -204,7 +241,7 @@ UResourceInfo* AMyFunctionalTestLevelScript::genTileResource(int tileType)
 		default:
 			break;
 		}
-		UE_LOG(LogTemp, Warning, TEXT("Case 4"));
+		//UE_LOG(LogTemp, Warning, TEXT("Case 4"));
 		break;
 	case 5:
 		switch (sub2)
@@ -227,7 +264,7 @@ UResourceInfo* AMyFunctionalTestLevelScript::genTileResource(int tileType)
 		default:
 			break;
 		}
-		UE_LOG(LogTemp, Warning, TEXT("Case 5"));
+		//UE_LOG(LogTemp, Warning, TEXT("Case 5"));
 		break;
 	case 6:
 		switch (subchoice)
@@ -247,7 +284,7 @@ UResourceInfo* AMyFunctionalTestLevelScript::genTileResource(int tileType)
 		default:
 			break;
 		}
-		UE_LOG(LogTemp, Warning, TEXT("Case 6"));
+		//UE_LOG(LogTemp, Warning, TEXT("Case 6"));
 		break;
 	case 7:
 		switch (sub2)
@@ -271,10 +308,29 @@ UResourceInfo* AMyFunctionalTestLevelScript::genTileResource(int tileType)
 		default:
 			break;
 		}
-		UE_LOG(LogTemp, Warning, TEXT("Case 7"));
+		//UE_LOG(LogTemp, Warning, TEXT("Case 7"));
 		break;
 	default:
 		break;
 	}
 	return resource;
+}
+
+bool AMyFunctionalTestLevelScript::checkGameOver(UPlayerClass* input)
+{
+	if (input->getAccruedMoney() >= getWinMoney())
+	{
+		setWinningPlayer(input);
+		setGameOver(true);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void AMyFunctionalTestLevelScript::genPlayer()
+{
+	Player = NewObject<UPlayerClass>();
 }

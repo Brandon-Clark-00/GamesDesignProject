@@ -28,9 +28,13 @@ public:
 		int turnLimit;
 	UPROPERTY()
 		bool gameOver = false;
+	UPROPERTY()
+		float winMoney = 200;
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere) 
 		UPlayerClass* Player = nullptr;
 
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+		UPlayerClass* WinningPlayer = nullptr;
 
 
 
@@ -53,6 +57,12 @@ public:
     void setPlayer(UPlayerClass* iPlayer) { this->Player = iPlayer; }
 
 	UFUNCTION(BlueprintCallable, Category = "CoreLogic")
+		UPlayerClass* getWinningPlayer() const { return WinningPlayer; }
+
+	UFUNCTION(BlueprintCallable, Category = "CoreLogic")
+		void setWinningPlayer(UPlayerClass* iWinningPlayer) { this->WinningPlayer = iWinningPlayer; }
+
+	UFUNCTION(BlueprintCallable, Category = "CoreLogic")
     TArray<UPlayerClass*> getAIPlayers() const { return AIPlayers; }
     
 	UFUNCTION(BlueprintCallable, Category = "CoreLogic")
@@ -70,19 +80,35 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "CoreLogic")
 	void setGameOver(bool iGameOver) { this->gameOver = iGameOver; }
 
+	UFUNCTION(BlueprintCallable, Category = "CoreLogic")
+		float getWinMoney() const { return winMoney; }
+
+	UFUNCTION(BlueprintCallable, Category = "CoreLogic")
+		void setWinMoney(float iWinMoney) { this->winMoney = iWinMoney; }
+
+
 	void takeAITurn(UPlayerClass* AI);
 
 	UFUNCTION(BlueprintCallable, Category = "CoreLogic")
 	void gameLoop();
 
+	
+
+		void updateUtilities(UPlayerClass* input);
 	UFUNCTION(BlueprintCallable, Category = "CoreLogic")
-	void genAI(int AINum);
+		void genAI(int AINum);
+
+	UFUNCTION(BlueprintCallable, Category = "CoreLogic")
+	FString returnAIDetails();
 
 	TArray<UTileInfo*> genAITiles();
 
 	UResourceInfo* genTileResource(int tileType);
 	
+	bool checkGameOver(UPlayerClass* input);
 
+	UFUNCTION(BlueprintCallable, Category = "CoreLogic")
+		void genPlayer();
     
 
    
