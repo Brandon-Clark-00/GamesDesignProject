@@ -163,4 +163,12 @@ public:
 	TArray<FresourcesList> createResourcesList(FString input);
 
 	TArray<UTileInfo*> createPlayerTiles(FString input);
+
+	UFUNCTION(BlueprintCallable, Category = "Player")
+	void updateResources(UResourceInfo* input, UImprovementInfo* improv);
+
+	UFUNCTION(BlueprintCallable, Category = "Player")
+	int getCertainResource(int type);
+
+
 };

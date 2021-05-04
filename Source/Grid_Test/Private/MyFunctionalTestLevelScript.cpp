@@ -34,6 +34,7 @@ void AMyFunctionalTestLevelScript::takeAITurn(UPlayerClass* AI)
 		}
 		else
 		{
+			AI->updateResources(AI->getPlayerTiles()[tile]->getResource(),AI->getPlayerTiles()[tile]->getImprovementInfo());
 			turnTaken = true;
 		}
 	}

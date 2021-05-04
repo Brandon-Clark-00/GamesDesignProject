@@ -13,47 +13,26 @@
 
      IPlatformFile& FileManager = FPlatformFileManager::Get().GetPlatformFile();
 
-     FString writeString(TEXT("Poofs"));
+
+
 
      if (FileManager.FileExists(*file))
      {
-     if (FFileHelper::SaveStringToFile(textInput, *file))
-     {
-         UE_LOG(LogTemp, Warning, TEXT("FileManipulation: Sucsesfuly Written: \"%s\" to the text file"), *textInput);
-     }
-     else
-     {
-         UE_LOG(LogTemp, Warning, TEXT("FileManipulation: Failed to write FString to file."), *textInput);
-     }
-
-
+         if (FFileHelper::SaveStringToFile(textInput, *file))
+         {
+             UE_LOG(LogTemp, Warning, TEXT("FileManipulation: Successfuly Written: \"%s\" to the text file"), *textInput);
+         }
+         else
+         {
+             UE_LOG(LogTemp, Warning, TEXT("FileManipulation: Failed to write FString to file."), *textInput);
+         }
      }
      else
      {
          UE_LOG(LogTemp, Warning, TEXT("FileManipulation: ERROR: Can not read the file because it was not found."));
          UE_LOG(LogTemp, Warning, TEXT("FileManipulation: Expected file location: %s"), *file);
      }
-    //Opening filestream
-    ofstream FyallStream;
-    //Opening file using filename
-    FyallStream.open("player.txt");
-
-    //Validates if it is a file
-    if (FyallStream.fail() == false)
-    {
-        //Writes the heigth and width of the grid to the first and second lines of the file
-        /*FyallStream << textInput << endl;*/
-
-  
-        // Closes the fyallStream
-        FyallStream.close();
-    }
-    else
-    {
-        //Closes the fyallStream
-        FyallStream.close();
-    }
-
+   
 
     return 1;
 }

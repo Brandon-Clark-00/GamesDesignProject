@@ -356,5 +356,73 @@ TArray<UTileInfo*> UPlayerClass::createPlayerTiles(FString input)
 	}
 	return output;
 }
+
+UFUNCTION(BlueprintCallable, Category = "Player")
+void UPlayerClass::updateResources(UResourceInfo* input, UImprovementInfo* improv)
+{
+	
+	FresourcesList temp;
+	if (getResourcesList().IsValidIndex(0))
+	{
+		for (int i = 0; i < getResourcesList().Num(); i++)
+		{
+			if (getResourcesList()[i].name == input->getResourceName())
+			{
+				getResourcesList()[i].count += input->getResourceCount();
+				return;
+			}
+		}
+		temp.ID = input->getID();
+		temp.name = input->getResourceName();
+		temp.count = input->getResourceCount();
+		getResourcesList().Add(temp);
+	}
+	else
+	{
+		temp.ID = input->getID();
+		temp.name = input->getResourceName();
+		temp.count = input->getResourceCount();
+		getResourcesList().Add(temp);
+	}
+
+	if (input != nullptr && improv != nullptr)
+	{
+		setMoneyDemand(getMoneyDemand() + improv->getRunningCost());
+		setMoneySupply(getMoneySupply() + input->getCurrencyValue());
+
+		setEnergyDemand(getEnergyDemand() + improv->getRunningCost());
+		setEnergySupply(getEnergySupply() + input->getEnergyValue());
+
+		setFoodDemand(getFoodDemand() + improv->getRunningCost());
+		setFoodSupply(getFoodSupply() + input->getFoodValue());
+
+		setAccruedMoney(getAccruedMoney() + getMoneySupply() - getMoneyDemand());
+	}
+	
+}
+
+UFUNCTION(BlueprintCallable, Category = "Player")
+int UPlayerClass::getCertainResource(int type) {
+	if (getResourcesList().IsValidIndex(0))
+	{
+		for (int i = 0; i < getResourcesList().Num(); i++)
+		{
+			if (getResourcesList()[i].ID = type)
+			{
+				return getResourcesList()[i].count;
+			}
+		}
+	}
+	else
+	{
+		return 0;
+	}
+	return 0;
+}
+
+
+
+
+
 ;
 
